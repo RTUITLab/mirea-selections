@@ -1,17 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Golos+Text:wght@700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,500;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,400;0,700;0,800;1,400&display=swap');
 
-$main-bg: linear-gradient(135deg, #7a0000 7.96%, #4f010a 92.38%);
+@font-face {
+	font-family: 'Adderley';
+	src: url('./fonts/AdderleyRegular.otf') format('opentype');
+	font-style: normal;
+	font-weight: 400;
+}
 
-$main-text-color: #000;
-$accent-text-color: #efb134;
-$inverted-accent-text-color: #710103;
-$secondary-text-color: #fcfcfc;
-$info-text-color: #6f6f6f;
-$annotation-text-color: #ededed;
-
-$accent-font: 'Golos Text', sans-serif;
-$main-font: 'Raleway', sans-serif;
+@font-face {
+	font-family: 'Adderley';
+	src: url('./fonts/AdderleyBold.otf') format('opentype');
+	font-style: normal;
+	font-weight: 700;
+}
 
 * {
 	box-sizing: border-box;
@@ -20,12 +22,7 @@ $main-font: 'Raleway', sans-serif;
 }
 
 html {
-	max-height: 100vh;
-	height: 100vh;
-	background: $main-bg;
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-position: center center;
+	font-family: 'Adderley', sans-serif;
 }
 
 body {
@@ -33,14 +30,15 @@ body {
 	max-height: 100vh;
 	height: 100svh;
 	min-width: 300px;
-	background: $main-bg;
+	background: linear-gradient(135deg, #7a0000 7.96%, #4f010a 92.38%);
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center center;
-	font-family: $main-font;
+	overflow-x: hidden;
 }
 
 #root {
 	height: 100%;
 	width: 100%;
+	overflow: hidden;
 }
