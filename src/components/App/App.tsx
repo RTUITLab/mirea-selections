@@ -5,11 +5,28 @@ import awardCupBackgroundSrc from '../../assets/award_cup_background.svg';
 import mireaLogosBackgroundSrc from '../../assets/mirea_logos_background.svg';
 import { useState } from 'react';
 import Banner from '../Banner';
+import SelectionInfo from '../SelectionInfo';
 
 const queryClient = new QueryClient();
 
 export default function App() {
 	const [currentWidth, setCurrentWidth] = useState(window.innerWidth);
+	const [mireaLogosHidden, setMireaLogosHidden] = useState(false);
+	// const body = document.body;
+
+	// useEffect(() => {
+	// 	if (currentWidth > 1024) {
+	// 		body.classList.add('disableScroll');
+	// 	} else {
+	// 		body.classList.remove('disableScroll');
+	// 	}
+	// }, [currentWidth]);
+
+	window.addEventListener('scroll', () => {
+		if (window.scrollY === 0) {
+			setMireaLogosHidden(false);
+		}
+	});
 
 	window.addEventListener('resize', () => {
 		setCurrentWidth(window.innerWidth);
@@ -25,11 +42,18 @@ export default function App() {
 				/>
 				<img
 					src={mireaLogosBackgroundSrc}
-					className={styles.mireaLogosBackground}
+					className={`${styles.mireaLogosBackground} ${
+						mireaLogosHidden && styles.mireaLogosBackgroundHidden
+					}`}
 				/>
 
-				<Banner currentWidth={currentWidth} />
+				<Banner
+					currentWidth={currentWidth}
+					setMireaLogosHidden={setMireaLogosHidden}
+				/>
 			</main>
+
+			<SelectionInfo />
 		</QueryClientProvider>
 	);
 }

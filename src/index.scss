@@ -29,7 +29,10 @@ body {
 	width: 100vw;
 	min-width: 300px;
 	background: linear-gradient(135deg, #7a0000 7.96%, #4f010a 92.38%);
-	overflow-x: hidden;
+}
+
+.disableScroll {
+	overflow: hidden;
 }
 
 #root {

@@ -45,6 +45,13 @@
 		top: 20%;
 		left: 30%;
 		opacity: 0.7;
+		visibility: visible;
+		transform: visibility 0.3s, opacity 0.3s linear;
+
+		&Hidden {
+			visibility: hidden;
+			opacity: 0;
+		}
 
 		@media screen and (max-height: 900px) {
 			top: 15%;
