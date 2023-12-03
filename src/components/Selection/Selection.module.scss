@@ -1,0 +1,182 @@
+.selection {
+	position: relative;
+	width: 100%;
+	height: 100vh;
+	display: flex;
+
+	.leavesBackground {
+		height: 100%;
+		width: auto;
+		position: fixed;
+		right: 0;
+		mix-blend-mode: soft-light;
+
+		@media screen and (max-width: 1024px) {
+			right: -80px;
+		}
+	}
+
+	.awardCupBackground {
+		height: 100%;
+		width: auto;
+		position: fixed;
+		mix-blend-mode: soft-light;
+		opacity: 0.7;
+
+		@media screen and (max-width: 1024px) {
+			height: 50%;
+			top: 25%;
+			transform: translateX(-20%);
+			justify-self: flex-start;
+		}
+	}
+
+	&Container {
+		position: relative;
+		z-index: 4;
+		max-width: 1325px;
+		margin: auto auto;
+		display: flex;
+		flex-direction: column;
+		gap: 32px;
+	}
+
+	&Title {
+		width: 643px;
+		height: auto;
+	}
+
+	&Content {
+		width: 100%;
+		height: 532px;
+		display: flex;
+		align-items: stretch;
+	}
+
+	&ApplicantsList {
+		margin-top: 16px;
+		flex-grow: 1;
+		overflow-y: scroll;
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+		-ms-overflow-style: none; /* IE и Edge */
+		scrollbar-width: none;
+
+		&::-webkit-scrollbar {
+			display: none;
+		}
+
+		&Container {
+			display: flex;
+			justify-content: flex-start;
+			flex-direction: column;
+			padding: 24px 16px 24px 0px;
+			width: 40%;
+		}
+	}
+
+	&Nominations {
+		display: flex;
+		width: 100%;
+	}
+
+	&Nomination {
+		width: 50%;
+		background-color: transparent;
+		padding: 16px 24px;
+		color: #efb134;
+		font-family: 'Adderley', sans-serif;
+		font-size: 22px;
+		font-weight: 700;
+		line-height: normal;
+		font-variant: small-caps;
+		letter-spacing: 1.2px;
+		border: 1px solid #efb134;
+		transition: background-color 0.3s, color 0.3s linear;
+
+		&Left {
+			border-radius: 8px 0px 0px 8px;
+		}
+
+		&Right {
+			border-radius: 0px 8px 8px 0px;
+		}
+
+		&Active {
+			background-color: #efb134;
+			color: #720103;
+		}
+	}
+
+	&Applicant {
+		&InfoContainer {
+			width: 60%;
+			padding: 24px;
+			background-color: #fff;
+			border-radius: 24px;
+			font-family: 'Adderley', sans-serif;
+			display: flex;
+			flex-direction: column;
+		}
+
+		&Avatar {
+			display: block;
+			width: 224px;
+			height: 256px;
+		}
+
+		&FIO {
+			margin-top: 24px;
+
+			font-size: 24px;
+			font-weight: 700;
+			line-height: normal;
+			letter-spacing: 0.72px;
+			text-transform: capitalize;
+		}
+
+		&Description {
+			margin-top: 16px;
+			color: #6f6f6f;
+			font-size: 14px;
+			font-weight: 400;
+			line-height: normal;
+			letter-spacing: 0.42px;
+
+			&Small {
+				margin-top: 8px;
+				font-size: 16px;
+				font-weight: 400;
+				line-height: normal;
+				letter-spacing: 0.48px;
+				text-transform: capitalize;
+			}
+		}
+	}
+
+	&VoteButton {
+		margin-top: auto;
+		width: fit-content;
+		align-self: flex-end;
+		padding: 12px 24px;
+		border-radius: 8px;
+		border: 1px solid #1c0303;
+		background-color: transparent;
+
+		color: #1c0303;
+		font-size: 16px;
+		font-weight: 400;
+		line-height: normal;
+		letter-spacing: 0.48px;
+	}
+
+	&Annotation {
+		color: #ededed;
+		font-family: 'Adderley', sans-serif;
+		font-size: 14px;
+		font-weight: 400;
+		line-height: normal;
+		letter-spacing: 0.42px;
+	}
+}

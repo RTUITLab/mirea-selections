@@ -1,7 +1,12 @@
 import styles from './SelectionInfo.module.scss';
+import { useNavigate } from 'react-router';
 
 export function SelectionInfo() {
-	console.log(window.innerHeight);
+	const navigate = useNavigate();
+
+	function handleRedirectButtonClick() {
+		navigate('/selection');
+	}
 	return (
 		<section id="selectionInfo" className={styles.selectionInfo}>
 			<div className={styles.selectionInfoContainer}>
@@ -60,7 +65,10 @@ export function SelectionInfo() {
 					</li>
 				</ul>
 
-				<button className={styles.selectionInfoRedirectButton}>
+				<button
+					className={styles.selectionInfoRedirectButton}
+					onClick={handleRedirectButtonClick}
+				>
 					Хочу голосовать!
 				</button>
 			</div>

@@ -23,7 +23,7 @@ export default function App() {
 	// }, [currentWidth]);
 
 	window.addEventListener('scroll', () => {
-		if (window.scrollY === 0) {
+		if (window.scrollY < 100) {
 			setMireaLogosHidden(false);
 		} else {
 			setMireaLogosHidden(true);
