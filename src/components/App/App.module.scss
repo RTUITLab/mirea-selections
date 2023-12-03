@@ -4,12 +4,22 @@
 	position: relative;
 	overflow: hidden;
 
+	@media screen and (max-width: 1024px) {
+		padding: 44px 16px 40px 16px;
+		display: flex;
+		align-items: flex-end;
+	}
+
 	.leavesBackground {
 		height: 100%;
 		width: auto;
 		position: fixed;
 		right: 0;
 		mix-blend-mode: soft-light;
+
+		@media screen and (max-width: 1024px) {
+			right: -80px;
+		}
 	}
 
 	.awardCupBackground {
@@ -19,11 +29,12 @@
 		mix-blend-mode: soft-light;
 		opacity: 0.7;
 
-		// @media screen and (max-width: 1024px) {
-		// 	height: 50%;
-		// 	top: 25%;
-		// 	transform: translateX(-20%);
-		// }
+		@media screen and (max-width: 1024px) {
+			height: 50%;
+			top: 25%;
+			transform: translateX(-20%);
+			justify-self: flex-start;
+		}
 	}
 
 	.mireaLogosBackground {
@@ -51,6 +62,16 @@
 
 		@media screen and (max-width: 1130px) {
 			height: 150px;
+		}
+
+		@media screen and (max-width: 1024px) {
+			top: 44px;
+			left: 16px;
+			opacity: 1;
+		}
+
+		@media screen and (max-width: 540px) {
+			height: 97px;
 		}
 	}
 
@@ -81,6 +102,16 @@
 		@media screen and (max-width: 1130px) {
 			gap: 2%;
 		}
+
+		@media screen and (max-width: 1024px) {
+			position: static;
+			flex-direction: column;
+			align-items: center;
+			margin: 0 auto;
+		}
+
+		@media screen and (max-width: 540px) {
+		}
 	}
 
 	.bannerAwardCup {
@@ -91,6 +122,16 @@
 
 		@media screen and (max-width: 1240px) {
 			width: 350px;
+		}
+
+		@media screen and (max-width: 1024px) {
+			width: 200px;
+			transform: translateX(-35px);
+		}
+
+		@media screen and (max-width: 540px) {
+			width: 136px;
+			transform: translateX(-25px);
 		}
 	}
 
@@ -106,6 +147,26 @@
 
 		@media screen and (max-width: 1130px) {
 			width: 650px;
+		}
+
+		&Mobile {
+			width: 556px;
+			height: auto;
+			margin-top: 50px;
+
+			@media screen and (max-width: 700px) {
+				width: 456px;
+			}
+
+			@media screen and (max-width: 540px) {
+				width: 356px;
+				margin-top: 23px;
+			}
+
+			@media screen and (max-width: 385px) {
+				width: 300px;
+				margin-top: 23px;
+			}
 		}
 	}
 
@@ -126,6 +187,7 @@
 			right: 40px;
 			bottom: 35px;
 		}
+
 		&Text {
 			font-family: 'Raleway', sans-serif;
 			font-weight: 400;
@@ -137,6 +199,10 @@
 			@media screen and (max-width: 1130px) {
 				font-size: 18px;
 			}
+		}
+
+		&IconMobile {
+			margin-top: 73px;
 		}
 	}
 }
