@@ -25,6 +25,8 @@ export default function App() {
 	window.addEventListener('scroll', () => {
 		if (window.scrollY === 0) {
 			setMireaLogosHidden(false);
+		} else {
+			setMireaLogosHidden(true);
 		}
 	});
 
@@ -33,7 +35,7 @@ export default function App() {
 	});
 	return (
 		<QueryClientProvider client={queryClient}>
-			<main className={styles.main}>
+			<section className={styles.main}>
 				<img src={leavesBackgroundSrc} className={styles.leavesBackground} />
 
 				<img
@@ -51,7 +53,7 @@ export default function App() {
 					currentWidth={currentWidth}
 					setMireaLogosHidden={setMireaLogosHidden}
 				/>
-			</main>
+			</section>
 
 			<SelectionInfo />
 		</QueryClientProvider>
