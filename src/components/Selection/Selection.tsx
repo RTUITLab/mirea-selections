@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 import styles from './Selection.module.scss';
 import leavesBackgroundSrc from '../../assets/leaves_background.svg';
 import awardCupBackgroundSrc from '../../assets/award_cup_background.svg';
@@ -40,7 +41,7 @@ export function Selection() {
 		queryKey: ['teachersNominationInfo', votingInfo, teacherNominationId],
 		queryFn: async () => {
 			const res = await getNominationInfo(
-				'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFjODJlOTkyLTc4MTEtNDBmYi1iMzg2LTFmZjQ3ZmI5MzE3ZiIsIm5hbWUiOiJcdTA0MWJcdTA0MzBcdTA0M2ZcdTA0NDJcdTA0MzVcdTA0MzIgXHUwNDE4XHUwNDMyXHUwNDMwXHUwNDNkIFx1MDQxMFx1MDQzYlx1MDQzNVx1MDQzYVx1MDQ0MVx1MDQzMFx1MDQzZFx1MDQzNFx1MDQ0MFx1MDQzZVx1MDQzMlx1MDQzOFx1MDQ0NyIsImVtYWlsIjoibGFwdGV2X2lAbWlyZWEucnUiLCJ1bml0IjpudWxsLCJleHAiOjE3MDE3MDU4NzZ9.9Nga-PHtZk-7nSzTTfDl8b73mBNPM_rIeZOSNRbyoAo',
+				'Bearer ',
 				votingInfo?.id,
 				teacherNominationId
 			);
@@ -53,7 +54,7 @@ export function Selection() {
 		queryKey: ['studentsNominationInfo', votingInfo, studentNominationId],
 		queryFn: async () => {
 			const res = await getNominationInfo(
-				'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFjODJlOTkyLTc4MTEtNDBmYi1iMzg2LTFmZjQ3ZmI5MzE3ZiIsIm5hbWUiOiJcdTA0MWJcdTA0MzBcdTA0M2ZcdTA0NDJcdTA0MzVcdTA0MzIgXHUwNDE4XHUwNDMyXHUwNDMwXHUwNDNkIFx1MDQxMFx1MDQzYlx1MDQzNVx1MDQzYVx1MDQ0MVx1MDQzMFx1MDQzZFx1MDQzNFx1MDQ0MFx1MDQzZVx1MDQzMlx1MDQzOFx1MDQ0NyIsImVtYWlsIjoibGFwdGV2X2lAbWlyZWEucnUiLCJ1bml0IjpudWxsLCJleHAiOjE3MDE3MDU4NzZ9.9Nga-PHtZk-7nSzTTfDl8b73mBNPM_rIeZOSNRbyoAo',
+				'Bearer ',
 				votingInfo?.id,
 				studentNominationId
 			);
@@ -113,7 +114,9 @@ export function Selection() {
 												fio={applicant.title}
 												avatarSrc={applicant.cover_url}
 												smallDescription={applicant.short_description}
-												onClick={() => setChosenApplicant(applicant)}
+												onClick={() => {
+													setChosenApplicant(applicant);
+												}}
 											/>
 										);
 								  })
@@ -138,6 +141,18 @@ export function Selection() {
 									className={styles.selectionApplicantAvatar}
 									src={chosenApplicant.cover_url}
 								/>
+
+								<iframe
+									src={`https://vk.com/video_ext.php?oid=-${chosenApplicant.video_url.slice(
+										21,
+										30
+									)}&id=${chosenApplicant.video_url.slice(31, 40)}&hd=2`}
+									width="1920"
+									height="1080"
+									allow="autoplay; encrypted-media; fullscreen; picture-in-picture;"
+									allowFullScreen
+									className={styles.selectionApplicantVideo}
+								></iframe>
 							</div>
 
 							<p className={styles.selectionApplicantFIO}>

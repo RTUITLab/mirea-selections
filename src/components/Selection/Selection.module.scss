@@ -120,12 +120,24 @@
 			flex-direction: column;
 		}
 
+		&Content {
+			display: flex;
+			justify-content: space-between;
+		}
+
 		&Avatar {
 			display: block;
 			width: 224px;
 			height: 256px;
 			border-radius: 16px;
 			object-fit: cover;
+		}
+
+		&Video {
+			height: 256px;
+			width: 485px;
+			border: none;
+			border-radius: 16px;
 		}
 
 		&FIO {
