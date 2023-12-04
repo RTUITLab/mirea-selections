@@ -1,0 +1,30 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag ${{ secrets.GITLAB_REGISTRY_HOST }}/mirea-selections/front:latest
+    - name: Login docker
+      uses: docker/login-action@v3.0.0
+      with:
+        registry: ${{ secrets.GITLAB_REGISTRY_HOST }}
+        username: ${{ secrets.GITLAB_REGISTRY_LOGIN }}
+        password: ${{ secrets.GITLAB_REGISTRY_PAT }}
+    - name: Push image
+      run: docker push ${{ secrets.GITLAB_REGISTRY_HOST }}/mirea-selections/front:latest
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+    - name: Push
+      run: curl -X POST ${{ secrets.UPDATE_URL }}
