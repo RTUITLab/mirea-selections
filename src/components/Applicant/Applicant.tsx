@@ -4,15 +4,17 @@ interface ApplicantProps {
 	fio: string;
 	smallDescription: string;
 	avatarSrc: string;
+	onClick: () => void;
 }
 
 export function Applicant({
 	fio,
 	smallDescription,
 	avatarSrc,
+	onClick,
 }: ApplicantProps) {
 	return (
-		<div className={styles.applicant}>
+		<div className={styles.applicant} onClick={() => onClick()}>
 			<img src={avatarSrc} className={styles.applicantAvatar} />
 
 			<div className={styles.applicantInfo}>

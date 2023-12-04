@@ -124,11 +124,12 @@
 			display: block;
 			width: 224px;
 			height: 256px;
+			border-radius: 16px;
+			object-fit: cover;
 		}
 
 		&FIO {
-			margin-top: 24px;
-
+			margin-top: 20px;
 			font-size: 24px;
 			font-weight: 700;
 			line-height: normal;
@@ -137,6 +138,8 @@
 		}
 
 		&Description {
+			max-height: 80px;
+			overflow-y: scroll;
 			margin-top: 16px;
 			color: #6f6f6f;
 			font-size: 14px;
