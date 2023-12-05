@@ -48,6 +48,7 @@ export function Selection() {
 			setChosenApplicant(res.data.nominants[0]);
 			return res.data;
 		},
+		enabled: !!teacherNominationId && !!votingInfo,
 	});
 
 	const { data: studentsNominationInfo } = useQuery({
@@ -60,6 +61,7 @@ export function Selection() {
 			);
 			return res.data;
 		},
+		enabled: !!teacherNominationId && !!votingInfo,
 	});
 
 	useEffect(() => {
