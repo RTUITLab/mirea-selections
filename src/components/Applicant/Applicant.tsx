@@ -1,3 +1,4 @@
+import VoteButton from '../VoteButton';
 import styles from './Applicant.module.scss';
 
 interface ApplicantProps {
@@ -18,8 +19,11 @@ export function Applicant({
 			<img src={avatarSrc} className={styles.applicantAvatar} />
 
 			<div className={styles.applicantInfo}>
-				<p className={styles.applicantFIO}>{fio}</p>
-				<p className={styles.applicantSmallDescription}>{smallDescription}</p>
+				<div className={styles.applicantInfoText}>
+					<p className={styles.applicantFIO}>{fio}</p>
+					<p className={styles.applicantSmallDescription}>{smallDescription}</p>
+				</div>
+				<VoteButton location="applicant" />
 			</div>
 		</div>
 	);

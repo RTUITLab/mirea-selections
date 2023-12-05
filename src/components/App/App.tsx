@@ -1,7 +1,7 @@
 import styles from './App.module.scss';
 import leavesBackgroundSrc from '../../assets/leaves_background.svg';
 import awardCupBackgroundSrc from '../../assets/award_cup_background.svg';
-import mireaLogosBackgroundSrc from '../../assets/mirea_logos_background.svg';
+import logosSrc from '../../assets/logos.svg';
 import { useState } from 'react';
 import Banner from '../Banner';
 import SelectionInfo from '../SelectionInfo';
@@ -40,7 +40,7 @@ export default function App() {
 					className={styles.awardCupBackground}
 				/>
 				<img
-					src={mireaLogosBackgroundSrc}
+					src={logosSrc}
 					className={`${styles.mireaLogosBackground} ${
 						mireaLogosHidden && styles.mireaLogosBackgroundHidden
 					}`}

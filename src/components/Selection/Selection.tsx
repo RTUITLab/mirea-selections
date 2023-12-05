@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import Applicant from '../Applicant';
 import { useQuery } from '@tanstack/react-query';
 import { getVotingInfo, getNominationInfo } from '../../api';
+import VoteButton from '../VoteButton';
 
 type SelectedNominationType = 'teacher' | 'student';
 
@@ -169,9 +170,10 @@ export function Selection() {
 								{chosenApplicant.description}
 							</p>
 
-							<button className={styles.selectionVoteButton}>
+							{/* <button className={styles.selectionVoteButton}>
 								Проголосовать
-							</button>
+							</button> */}
+							<VoteButton location={'selection'} />
 						</div>
 					)}
 				</div>

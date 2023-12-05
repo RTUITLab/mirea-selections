@@ -38,13 +38,13 @@
 	}
 
 	.mireaLogosBackground {
-		mix-blend-mode: soft-light;
 		position: fixed;
 		height: 240px;
 		width: auto;
 		top: 20%;
 		left: 30%;
 		transition: opacity 0.3s linear;
+		opacity: 0.45;
 
 		&Hidden {
 			opacity: 0 !important	;
@@ -71,7 +71,6 @@
 		@media screen and (max-width: 1024px) {
 			top: 44px;
 			left: 16px;
-			opacity: 1;
 		}
 
 		@media screen and (max-width: 540px) {

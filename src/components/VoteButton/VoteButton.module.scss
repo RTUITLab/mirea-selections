@@ -1,0 +1,25 @@
+.voteButton {
+	width: fit-content;
+	border-radius: 8px;
+	border: 1px solid #1c0303;
+	background-color: transparent;
+	color: #1c0303;
+
+	font-weight: 400;
+	line-height: normal;
+	letter-spacing: 0.48px;
+
+	&Selection {
+		font-size: 15px;
+		margin-top: auto;
+		align-self: flex-end;
+		padding: 8px 20px;
+	}
+
+	&Applicant {
+		padding: 6px;
+		height: fit-content;
+		align-self: center;
+		font-size: 13px;
+	}
+}
