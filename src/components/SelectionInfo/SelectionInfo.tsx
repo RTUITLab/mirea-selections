@@ -1,11 +1,16 @@
 import styles from './SelectionInfo.module.scss';
 import { useNavigate } from 'react-router';
+import { isMobile } from 'react-device-detect';
 
 export function SelectionInfo() {
 	const navigate = useNavigate();
 
 	function handleRedirectButtonClick() {
-		navigate('/selection');
+		if (!isMobile) {
+			navigate('/selection');
+		} else {
+			navigate('mob-selection');
+		}
 	}
 	return (
 		<section id="selectionInfo" className={styles.selectionInfo}>

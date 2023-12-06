@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/App';
 import Selection from './components/Selection';
+import MobileSelection from './components/MobileSelection';
 import './index.scss';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
 	{
 		path: 'selection',
 		element: <Selection />,
+	},
+	{
+		path: 'mob-selection',
+		element: <MobileSelection />,
 	},
 ]);
 

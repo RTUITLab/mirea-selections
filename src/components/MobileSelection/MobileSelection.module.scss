@@ -1,0 +1,194 @@
+.mobileSelection {
+	height: 100vh;
+	width: 100%;
+	position: relative;
+
+	&ChosenMode {
+		min-height: 100vh;
+		height: auto;
+	}
+
+	.leavesBackground {
+		height: 100%;
+		width: auto;
+		position: fixed;
+		right: 0;
+		mix-blend-mode: soft-light;
+
+		@media screen and (max-width: 1024px) {
+			right: -80px;
+		}
+	}
+
+	.awardCupBackground {
+		height: 100%;
+		width: auto;
+		position: fixed;
+		mix-blend-mode: soft-light;
+		opacity: 0.7;
+
+		@media screen and (max-width: 1024px) {
+			height: 50%;
+			top: 25%;
+			transform: translateX(-20%);
+			justify-self: flex-start;
+		}
+	}
+
+	&Container {
+		height: 100%;
+		width: 100%;
+		padding: 100px 16px 70px 16px;
+		display: flex;
+		flex-direction: column;
+
+		&ChosenMode {
+			justify-content: space-between;
+			align-items: center;
+		}
+	}
+
+	&Title {
+		position: relative;
+		z-index: 4;
+		width: 100%;
+		height: auto;
+	}
+
+	&NominationsChooser {
+		margin-top: 24px;
+		width: 100%;
+		display: flex;
+		position: relative;
+		z-index: 4;
+	}
+
+	&NominationButton {
+		width: 50%;
+		padding: 8px 20px;
+		border: 1px solid #efb134;
+		background-color: transparent;
+		color: #efb134;
+		font-family: 'Raleway', sans-serif;
+		font-size: 15px;
+		font-weight: 700;
+		line-height: normal;
+		letter-spacing: 0.45px;
+		cursor: pointer;
+
+		transition: background-color 0.3s, color 0.3s linear;
+
+		&Left {
+			border-radius: 8px 0px 0px 8px;
+			border-right: none;
+		}
+
+		&Right {
+			border-radius: 0px 8px 8px 0px;
+			border-left: none;
+		}
+
+		&Active {
+			background-color: #efb134;
+			color: #710103;
+		}
+	}
+
+	&ApplicantsList {
+		margin-top: 16px;
+		list-style-type: none;
+		flex-grow: 1;
+		overflow-y: scroll;
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+
+	&Student {
+		margin-top: 140px;
+		width: 100%;
+		border-radius: 24px;
+		background: #fafafa;
+		padding: 24px 24px 14px 24px;
+		position: relative;
+
+		&FIO {
+			margin-top: 66px;
+			color: #000;
+			font-family: 'Golos Text', sans-serif;
+			font-size: 20px;
+			font-weight: 700;
+			line-height: normal;
+			letter-spacing: 0.48px;
+		}
+
+		&Description {
+			margin-top: 16px;
+			color: #6f6f6f;
+			font-family: 'Raleway', sans-serif;
+			font-size: 14px;
+			font-weight: 500;
+			line-height: normal;
+			letter-spacing: 0.3px;
+			&Small {
+				margin-top: 8px;
+				color: #000;
+				font-family: 'Raleway', sans-serif;
+				font-size: 16px;
+				font-weight: 500;
+				line-height: normal;
+				letter-spacing: 0.33px;
+			}
+		}
+
+		&ButtonsContainer {
+			margin-top: 20px;
+			width: 100%;
+			display: flex;
+			justify-content: space-between;
+		}
+
+		&Button {
+			padding: 8px 12px;
+			border-radius: 8px;
+			border: 1px solid #1c0303;
+			background-color: transparent;
+			color: #1c0303;
+			font-family: 'Raleway', sans-serif;
+			font-size: 14px;
+			font-weight: 400;
+			line-height: normal;
+			letter-spacing: 0.42px;
+		}
+
+		&Div {
+			width: calc(100% - 48px);
+			position: absolute;
+			top: -94px;
+		}
+
+		&Avatar {
+			display: block;
+			margin: 0 auto;
+			width: 160px;
+			height: 160px;
+			object-fit: cover;
+			border-radius: 16px;
+			box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+		}
+	}
+
+	&BackButton {
+		margin-top: 130px;
+		padding: 8px 12px;
+		background-color: transparent;
+		border-radius: 8px;
+		border: 1px solid #efb134;
+		color: #efb134;
+		font-family: 'Raleway', sans-serif;
+		font-size: 16px;
+		font-weight: 700;
+		line-height: normal;
+		letter-spacing: 0.48px;
+	}
+}

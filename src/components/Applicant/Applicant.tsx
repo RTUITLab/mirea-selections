@@ -1,5 +1,6 @@
 import VoteButton from '../VoteButton';
 import styles from './Applicant.module.scss';
+import { isMobile } from 'react-device-detect';
 
 interface ApplicantProps {
 	fio: string;
@@ -23,7 +24,8 @@ export function Applicant({
 					<p className={styles.applicantFIO}>{fio}</p>
 					<p className={styles.applicantSmallDescription}>{smallDescription}</p>
 				</div>
-				<VoteButton location="applicant" />
+
+				{!isMobile && <VoteButton location="applicant" />}
 			</div>
 		</div>
 	);
