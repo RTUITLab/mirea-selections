@@ -32,6 +32,8 @@
 	}
 
 	&Container {
+		box-sizing: content-box;
+		padding: 0 3%;
 		position: relative;
 		z-index: 4;
 		max-width: 1325px;
@@ -94,6 +96,7 @@
 		letter-spacing: 1.2px;
 		border: 1px solid #efb134;
 		transition: background-color 0.3s, color 0.3s linear;
+		cursor: pointer;
 
 		&Left {
 			border-radius: 8px 0px 0px 8px;
@@ -123,6 +126,7 @@
 		&Content {
 			display: flex;
 			justify-content: space-between;
+			gap: 10px;
 		}
 
 		&Avatar {

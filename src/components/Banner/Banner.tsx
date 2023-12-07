@@ -20,11 +20,19 @@ export function Banner({ currentWidth, setMireaLogosHidden }: BannerProps) {
 	return (
 		<>
 			<div className={styles.mainContent}>
-				<img src={awardCup} className={styles.bannerAwardCup} />
 				{currentWidth > 1024 ? (
-					<img src={bannerTextDesktopSrc} className={styles.bannerText} />
+					<>
+						<img src={awardCup} className={styles.bannerAwardCup} />
+						<img src={bannerTextDesktopSrc} className={styles.bannerText} />
+					</>
 				) : (
-					<img src={bannerTextMobileSrc} className={styles.bannerTextMobile} />
+					<div className={styles.mainContentBannerContainer}>
+						<img src={awardCup} className={styles.bannerAwardCup} />
+						<img
+							src={bannerTextMobileSrc}
+							className={styles.bannerTextMobile}
+						/>
+					</div>
 				)}
 
 				{currentWidth <= 1024 && (

@@ -10,6 +10,10 @@
 		align-items: flex-end;
 	}
 
+	@media screen and (max-height: 430px) {
+		padding: 44px 16px 20px 16px;
+	}
+
 	.leavesBackground {
 		height: 100%;
 		width: auto;
@@ -19,6 +23,10 @@
 
 		@media screen and (max-width: 1024px) {
 			right: -80px;
+		}
+
+		@media screen and (max-height: 500px) {
+			right: -20px;
 		}
 	}
 

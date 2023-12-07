@@ -24,6 +24,17 @@
 		align-items: center;
 		margin: 0 auto;
 	}
+
+	&BannerContainer {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		@media screen and (max-height: 675px) {
+			flex-direction: row;
+			gap: 2%;
+		}
+	}
 }
 
 .bannerAwardCup {
@@ -128,5 +139,9 @@
 
 	&IconMobile {
 		margin-top: 73px;
+
+		@media screen and (max-height: 430px) {
+			margin-top: 25px;
+		}
 	}
 }
