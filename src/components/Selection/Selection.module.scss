@@ -75,6 +75,10 @@
 			flex-direction: column;
 			padding: 24px 16px 24px 0px;
 			width: 40%;
+
+			@media screen and (max-width: 1200px) {
+				width: 35%;
+			}
 		}
 	}
 
@@ -114,7 +118,7 @@
 
 	&Applicant {
 		&InfoContainer {
-			width: 60%;
+			width: 65%;
 			padding: 24px;
 			background-color: #fff;
 			border-radius: 24px;
@@ -135,6 +139,10 @@
 			height: 256px;
 			border-radius: 16px;
 			object-fit: cover;
+
+			@media screen and (max-width: 1200px) {
+				width: 180px;
+			}
 		}
 
 		&Video {
@@ -142,6 +150,10 @@
 			width: 485px;
 			border: none;
 			border-radius: 16px;
+
+			@media screen and (max-width: 1200px) {
+				width: 400px;
+			}
 		}
 
 		&FIO {
