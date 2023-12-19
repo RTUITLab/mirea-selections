@@ -1,7 +1,7 @@
 import styles from './App.module.scss';
 import leavesBackgroundSrc from '../../assets/leaves_background.svg';
 import awardCupBackgroundSrc from '../../assets/award_cup_background.svg';
-import logosSrc from '../../assets/logos.svg';
+import logosSrc from '../../assets/three_logos.svg';
 import { useState } from 'react';
 import Banner from '../Banner';
 import SelectionInfo from '../SelectionInfo';
