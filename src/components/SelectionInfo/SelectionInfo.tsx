@@ -43,7 +43,9 @@ export function SelectionInfo() {
 					<li className={styles.selectionInfoRule}>
 						<p className={styles.selectionInfoRuleText}>
 							Призовой фонд составляет более{' '}
-							<span className={styles.selectionInfoRuleTextBold}>1000000</span>{' '}
+							<span className={styles.selectionInfoRuleTextBold}>
+								1&nbsp;000&nbsp;000
+							</span>{' '}
 							рублей!
 						</p>
 					</li>
