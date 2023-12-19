@@ -1,7 +1,7 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 import styles from './Selection.module.scss';
 import leavesBackgroundSrc from '../../assets/leaves_background.svg';
-import awardCupBackgroundSrc from '../../assets/award_cup_background.svg';
+import awardCupBackgroundSrc from '../../assets/star2.svg';
 import selectionTitleSrc from '../../assets/selection_title.svg';
 import { useEffect, useState } from 'react';
 import Applicant from '../Applicant';

@@ -1,6 +1,6 @@
 import styles from './Banner.module.scss';
 
-import awardCup from '../../assets/awardCup.svg';
+import awardCup from '../../assets/star2.svg';
 import bannerTextDesktopSrc from '../../assets/banner_text_desktop.svg';
 import bannerTextMobileSrc from '../../assets/banner_text_mobile.svg';
 import arrowDownSrc from '../../assets/arrow_down.svg';
