@@ -94,11 +94,11 @@ export function Selection() {
 		},
 	});
 
-	console.log(teachersNominationInfo);
-
 	function handleRedirect() {
 		if (!sessionStorage.getItem('token')) {
-			window.location.href = `https://vote.rtuitlab.dev/api/auth/login?redirect_url=${window.location.href}`;
+			window.location.href = `${
+				import.meta.env.VITE_BASE_URL
+			}auth/login?redirect_url=${window.location.href}`;
 		} else {
 			const nominationId =
 				selectedNomination === 'student'

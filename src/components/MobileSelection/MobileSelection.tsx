@@ -3,10 +3,11 @@ import styles from './MobileSelection.module.scss';
 import leavesBackgroundSrc from '../../assets/leaves_background.svg';
 import awardCupBackgroundSrc from '../../assets/award_cup_background.svg';
 import selectionTitleSrc from '../../assets/selection_title.svg';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Applicant from '../Applicant';
-import { useQuery } from '@tanstack/react-query';
-import { getNominationInfo, getVotingInfo } from '../../api';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { getNominationInfo, getVotingInfo, userVote } from '../../api';
+import VoteButton from '../VoteButton';
 
 type NominationType = 'teachers' | 'students';
 
@@ -26,6 +27,8 @@ export function MobileSelection() {
 	const [teacherNominationId, setTeacherNominationId] = useState('');
 	const [studentNominationId, setStudentNominationId] = useState('');
 	const [chosenApplicant, setChosenApplicant] = useState({} as ApplicantInfo);
+	const searchParams = new URLSearchParams(window.location.search);
+	const queryClient = useQueryClient();
 
 	const { data: votingInfo } = useQuery({
 		queryKey: ['votingInfo'],
@@ -41,10 +44,13 @@ export function MobileSelection() {
 		queryKey: ['teachersNominationInfo', votingInfo, teacherNominationId],
 		queryFn: async () => {
 			const res = await getNominationInfo(
-				'Bearer ',
+				sessionStorage.getItem('token')
+					? 'Bearer ' + sessionStorage.getItem('token')
+					: 'Bearer ',
 				votingInfo?.id,
 				teacherNominationId
 			);
+			setChosenApplicant(res.data.nominants[0]);
 			return res.data;
 		},
 		enabled: !!teacherNominationId && !!votingInfo,
@@ -54,7 +60,9 @@ export function MobileSelection() {
 		queryKey: ['studentsNominationInfo', votingInfo, studentNominationId],
 		queryFn: async () => {
 			const res = await getNominationInfo(
-				'Bearer ',
+				sessionStorage.getItem('token')
+					? 'Bearer ' + sessionStorage.getItem('token')
+					: 'Bearer ',
 				votingInfo?.id,
 				studentNominationId
 			);
@@ -62,6 +70,68 @@ export function MobileSelection() {
 		},
 		enabled: !!teacherNominationId && !!votingInfo,
 	});
+
+	const { mutate: handleUserVote } = useMutation({
+		mutationFn: async (nomination_id: string) => {
+			const resp = await userVote(
+				votingInfo?.id || '',
+				nomination_id,
+				chosenApplicant.id,
+				'Bearer ' + sessionStorage.getItem('token') || ''
+			);
+			return resp;
+		},
+		onSuccess: () => {
+			queryClient.invalidateQueries({
+				queryKey: ['studentsNominationInfo', votingInfo, studentNominationId],
+			});
+			queryClient.invalidateQueries({
+				queryKey: ['studentsNominationInfo', votingInfo, studentNominationId],
+			});
+		},
+		onError: () => {
+			console.log('error');
+		},
+	});
+
+	function handleRedirect() {
+		if (!sessionStorage.getItem('token')) {
+			window.location.href = `${
+				import.meta.env.VITE_BASE_URL
+			}auth/login?redirect_url=${window.location.href}`;
+		} else {
+			const nominationId =
+				chosenNomination === 'students'
+					? studentNominationId
+					: teacherNominationId;
+			handleUserVote(nominationId);
+		}
+	}
+
+	useEffect(() => {
+		if (searchParams.get('token') && !sessionStorage.getItem('token')) {
+			sessionStorage.setItem('token', searchParams.get('token') || '');
+			const urlParams = new URLSearchParams(window.location.href);
+			urlParams.delete('token');
+		}
+	}, []);
+
+	function getButtonText() {
+		if (chosenNomination === 'teachers') {
+			if (teachersNominationInfo?.vote === null) {
+				return 'Проголосовать';
+			}
+			return 'Вы проголосовали!';
+		} else {
+			if (studentsNominationInfo?.vote === null) {
+				return 'Проголосовать';
+			}
+			return 'Вы проголосовали!';
+		}
+	}
+
+	//console.log(chosenApplicant.video_url.slice(21, 30));
+
 	return (
 		<section
 			className={`${styles.mobileSelection} ${
@@ -116,8 +186,8 @@ export function MobileSelection() {
 												onClick={() => {
 													setChosenApplicant(applicant);
 												}}
-												buttonText="Проголосовать"
-												onVoteClick={() => console.log('vote')}
+												buttonText={getButtonText()}
+												onVoteClick={handleRedirect}
 											/>
 										);
 								  })
@@ -129,8 +199,8 @@ export function MobileSelection() {
 												avatarSrc={applicant.cover_url}
 												smallDescription={applicant.short_description}
 												onClick={() => setChosenApplicant(applicant)}
-												buttonText="Проголосовать"
-												onVoteClick={() => console.log('vote')}
+												buttonText={getButtonText()}
+												onVoteClick={handleRedirect}
 											/>
 										);
 								  })}
@@ -151,17 +221,33 @@ export function MobileSelection() {
 							<p className={styles.mobileSelectionStudentDescriptionSmall}>
 								{chosenApplicant.short_description}
 							</p>
+							{chosenApplicant && (
+								<iframe
+									src={`https://vk.com/video_ext.php?oid=-${chosenApplicant.video_url.slice(
+										21,
+										30
+									)}&id=${chosenApplicant.video_url.slice(31, 40)}&hd=2`}
+									width="1920"
+									height="1080"
+									allow="autoplay; encrypted-media; fullscreen; picture-in-picture;"
+									allowFullScreen
+									className={styles.mobileSelectionApplicantVideo}
+								></iframe>
+							)}
+
 							<p className={styles.mobileSelectionStudentDescription}>
 								{chosenApplicant.description}
 							</p>
 
 							<div className={styles.mobileSelectionStudentButtonsContainer}>
-								<button className={styles.mobileSelectionStudentButton}>
-									QR-код
-								</button>
-								<button className={styles.mobileSelectionStudentButton}>
+								{/* <button className={styles.mobileSelectionStudentButton}>
 									Вы проголосовали!
-								</button>
+								</button> */}
+								<VoteButton
+									location="mobileSelection"
+									buttonText={getButtonText()}
+									onVoteClick={handleRedirect}
+								/>
 							</div>
 						</div>
 						<button

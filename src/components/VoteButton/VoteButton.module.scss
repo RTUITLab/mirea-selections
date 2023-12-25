@@ -27,4 +27,17 @@
 			padding: 4px;
 		}
 	}
+
+	&Mobile {
+		padding: 8px 12px;
+		border-radius: 8px;
+		border: 1px solid #1c0303;
+		background-color: transparent;
+		color: #1c0303;
+		font-family: 'Raleway', sans-serif;
+		font-size: 14px;
+		font-weight: 400;
+		line-height: normal;
+		letter-spacing: 0.42px;
+	}
 }

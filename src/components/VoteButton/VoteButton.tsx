@@ -18,6 +18,8 @@ export function VoteButton({
 					? styles.voteButtonSelection
 					: location === 'applicant'
 					? styles.voteButtonApplicant
+					: location === 'mobileSelection'
+					? styles.voteButtonMobile
 					: ''
 			} ${styles.voteButton}`}
 			onClick={() => onVoteClick()}

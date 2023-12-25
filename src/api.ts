@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = 'https://vote.rtuitlab.dev/api/';
+axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 axios.defaults.headers.post['Accept'] = 'application/json';
 axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';

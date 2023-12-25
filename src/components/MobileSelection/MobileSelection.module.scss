@@ -173,20 +173,7 @@
 			margin-top: 20px;
 			width: 100%;
 			display: flex;
-			justify-content: space-between;
-		}
-
-		&Button {
-			padding: 8px 12px;
-			border-radius: 8px;
-			border: 1px solid #1c0303;
-			background-color: transparent;
-			color: #1c0303;
-			font-family: 'Raleway', sans-serif;
-			font-size: 14px;
-			font-weight: 400;
-			line-height: normal;
-			letter-spacing: 0.42px;
+			justify-content: center;
 		}
 
 		&Div {
@@ -218,5 +205,13 @@
 		font-weight: 700;
 		line-height: normal;
 		letter-spacing: 0.48px;
+	}
+
+	&ApplicantVideo {
+		width: 100% !important;
+		height: auto;
+		border: none;
+		margin-top: 20px;
+		border-radius: 16px;
 	}
 }
