@@ -7,5 +7,5 @@ RUN npm run build
 
 FROM nginx
 COPY --from=build /app/dist /app
+COPY deploy/nginx.conf /etc/nginx/nginx.conf
 EXPOSE 80
-CMD ["nginx"]
