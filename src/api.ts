@@ -1,7 +1,8 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = 'https://vote.rtuitlab.dev/api/votings';
+axios.defaults.baseURL = 'https://vote.rtuitlab.dev/api/';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
+axios.defaults.headers.post['Accept'] = 'application/json';
 axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 
 interface NominationInfo {
@@ -45,7 +46,7 @@ interface NominationInfoResponse {
 }
 
 export function getVotingInfo() {
-	return axios.get<VotingInfoResponse>('/active');
+	return axios.get<VotingInfoResponse>('votings/active');
 }
 
 export function getNominationInfo(
@@ -54,7 +55,7 @@ export function getNominationInfo(
 	nomination_id: string
 ) {
 	return axios.get<NominationInfoResponse>(
-		`/${voting_id}/nominations/${nomination_id}`,
+		`votings/${voting_id}/nominations/${nomination_id}`,
 		{
 			headers: {
 				Authorization: jwt,
@@ -62,19 +63,57 @@ export function getNominationInfo(
 		}
 	);
 }
-// export function getVotingInfo() {
-// 	return fetch(`${BASE_URL}/active`, {
-// 		method: 'GET',
-// 		headers: {
-// 			Accept: 'application/json',
-// 			'Content-Type': 'application/json',
-// 		},
-// 	})
-// 		.then((res) => {
-// 			if (res.ok) {
-// 				return res.json();
-// 			}
-// 			return Promise.reject(`Ошибка ${res.status}`);
-// 		})
-// 		.then((res) => res);
-// }
+
+interface NominationInfo {
+	nomination_id: string;
+	nominant_id: string;
+}
+
+export function userVote(
+	voting_id: string,
+	nomination_id: string,
+	nominant_id: string,
+	jwt: string
+) {
+	console.log(nomination_id);
+	console.log(nominant_id);
+	return axios.post(
+		// 	// {
+		// 	// 	method: 'post',
+		// 	// 	url: `votings/${voting_id}/vote`,
+		// 	// 	data: {
+		// 	// 		nomination_id: nomination_id,
+		// 	// 		nominant_id: nominant_id,
+		// 	// 	},
+		// 	// 	headers: {
+		// 	// 		Authorization: jwt,
+		// 	// 		'Content-Type': 'application/json',
+		// 	// 		Accept: 'application/json',
+		// 	// 	},
+		// 	// }
+		`votings/${voting_id}/vote`,
+		{
+			nomination_id: nomination_id,
+			nominant_id: nominant_id,
+		},
+		{
+			headers: {
+				Authorization: jwt,
+				'Content-Type': 'application/json; charset=UTF-8',
+				Accept: 'application/json; charset=UTF-8',
+			},
+		}
+	);
+	// return fetch(`https://vote.rtuitlab.dev/api/votings/${voting_id}/vote`, {
+	// 	method: 'POST',
+	// 	headers: {
+	// 		Authorization: jwt,
+	// 		'Content-Type': 'application/json; charset=UTF-8',
+	// 		Accept: 'application/json; charset=UTF-8',
+	// 	},
+	// 	body: {
+	// 		body: 'dasf',
+
+	// 	},
+	// });
+}

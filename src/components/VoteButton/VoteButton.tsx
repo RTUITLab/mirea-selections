@@ -2,9 +2,15 @@ import styles from './VoteButton.module.scss';
 
 interface VoteButtonProps {
 	location: string;
+	onVoteClick: () => void;
+	buttonText: string;
 }
 
-export function VoteButton({ location }: VoteButtonProps) {
+export function VoteButton({
+	location,
+	onVoteClick,
+	buttonText,
+}: VoteButtonProps) {
 	return (
 		<button
 			className={`${
@@ -14,8 +20,10 @@ export function VoteButton({ location }: VoteButtonProps) {
 					? styles.voteButtonApplicant
 					: ''
 			} ${styles.voteButton}`}
+			onClick={() => onVoteClick()}
+			disabled={buttonText === 'Вы проголосовали!'}
 		>
-			Проголосовать
+			{buttonText}
 		</button>
 	);
 }

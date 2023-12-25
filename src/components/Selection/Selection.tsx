@@ -5,8 +5,8 @@ import awardCupBackgroundSrc from '../../assets/star2.svg';
 import selectionTitleSrc from '../../assets/selection_title.svg';
 import { useEffect, useState } from 'react';
 import Applicant from '../Applicant';
-import { useQuery } from '@tanstack/react-query';
-import { getVotingInfo, getNominationInfo } from '../../api';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { getVotingInfo, getNominationInfo, userVote } from '../../api';
 import VoteButton from '../VoteButton';
 
 type SelectedNominationType = 'teacher' | 'student';
@@ -27,6 +27,8 @@ export function Selection() {
 	const [teacherNominationId, setTeacherNominationId] = useState('');
 	const [studentNominationId, setStudentNominationId] = useState('');
 	const [chosenApplicant, setChosenApplicant] = useState({} as ApplicantInfo);
+	const searchParams = new URLSearchParams(window.location.search);
+	const queryClient = useQueryClient();
 
 	const { data: votingInfo } = useQuery({
 		queryKey: ['votingInfo'],
@@ -43,7 +45,9 @@ export function Selection() {
 			queryKey: ['teachersNominationInfo', votingInfo, teacherNominationId],
 			queryFn: async () => {
 				const res = await getNominationInfo(
-					'Bearer ',
+					sessionStorage.getItem('token')
+						? 'Bearer ' + sessionStorage.getItem('token')
+						: 'Bearer ',
 					votingInfo?.id,
 					teacherNominationId
 				);
@@ -59,7 +63,9 @@ export function Selection() {
 			queryKey: ['studentsNominationInfo', votingInfo, studentNominationId],
 			queryFn: async () => {
 				const res = await getNominationInfo(
-					'Bearer ',
+					sessionStorage.getItem('token')
+						? 'Bearer ' + sessionStorage.getItem('token')
+						: 'Bearer ',
 					votingInfo?.id,
 					studentNominationId
 				);
@@ -69,6 +75,46 @@ export function Selection() {
 		}
 	);
 
+	const { mutate: handleUserVote } = useMutation({
+		mutationFn: async (nomination_id: string) => {
+			const resp = await userVote(
+				votingInfo?.id || '',
+				nomination_id,
+				chosenApplicant.id,
+				'Bearer ' + sessionStorage.getItem('token') || ''
+			);
+			return resp;
+		},
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ['teachersNominationInfo'] });
+			queryClient.invalidateQueries({ queryKey: ['studentsNominationInfo'] });
+		},
+		onError: () => {
+			console.log('error');
+		},
+	});
+
+	console.log(teachersNominationInfo);
+
+	function handleRedirect() {
+		if (!sessionStorage.getItem('token')) {
+			window.location.href = `https://vote.rtuitlab.dev/api/auth/login?redirect_url=${window.location.href}`;
+		} else {
+			// console.log(votingInfo?.id);
+			// console.log(
+			// 	selectedNomination === 'student'
+			// 		? studentNominationId
+			// 		: teacherNominationId
+			// );
+			// console.log(chosenApplicant.id);
+			const nominationId =
+				selectedNomination === 'student'
+					? studentNominationId
+					: teacherNominationId;
+			handleUserVote(nominationId);
+		}
+	}
+
 	useEffect(() => {
 		if (selectedNomination === 'student') {
 			setChosenApplicant(studentsNominationInfo?.nominants[0] as ApplicantInfo);
@@ -76,6 +122,28 @@ export function Selection() {
 			setChosenApplicant(teachersNominationInfo?.nominants[0] as ApplicantInfo);
 		}
 	}, [selectedNomination]);
+
+	useEffect(() => {
+		if (searchParams.get('token') && !sessionStorage.getItem('token')) {
+			sessionStorage.setItem('token', searchParams.get('token') || '');
+			const urlParams = new URLSearchParams(window.location.href);
+			urlParams.delete('token');
+		}
+	}, []);
+
+	function getButtonText() {
+		if (selectedNomination === 'teacher') {
+			if (teachersNominationInfo?.vote) {
+				return 'Вы проголосовали!';
+			}
+			return 'Проголосовать';
+		} else {
+			if (studentsNominationInfo?.vote) {
+				return 'Вы проголосовали!';
+			}
+			return 'Проголосовать';
+		}
+	}
 
 	return (
 		<section className={styles.selection}>
@@ -129,6 +197,8 @@ export function Selection() {
 													onClick={() => {
 														setChosenApplicant(applicant);
 													}}
+													onVoteClick={handleRedirect}
+													buttonText={getButtonText()}
 												/>
 											);
 									  })
@@ -140,6 +210,8 @@ export function Selection() {
 													avatarSrc={applicant.cover_url}
 													smallDescription={applicant.short_description}
 													onClick={() => setChosenApplicant(applicant)}
+													onVoteClick={handleRedirect}
+													buttonText={getButtonText()}
 												/>
 											);
 									  })}
@@ -179,10 +251,11 @@ export function Selection() {
 									{chosenApplicant.description}
 								</p>
 
-								{/* <button className={styles.selectionVoteButton}>
-								Проголосовать
-							</button> */}
-								<VoteButton location={'selection'} />
+								<VoteButton
+									location={'selection'}
+									onVoteClick={handleRedirect}
+									buttonText={getButtonText()}
+								/>
 							</div>
 						)}
 					</div>
