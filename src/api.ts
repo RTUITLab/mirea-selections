@@ -78,19 +78,6 @@ export function userVote(
 	console.log(nomination_id);
 	console.log(nominant_id);
 	return axios.post(
-		// 	// {
-		// 	// 	method: 'post',
-		// 	// 	url: `votings/${voting_id}/vote`,
-		// 	// 	data: {
-		// 	// 		nomination_id: nomination_id,
-		// 	// 		nominant_id: nominant_id,
-		// 	// 	},
-		// 	// 	headers: {
-		// 	// 		Authorization: jwt,
-		// 	// 		'Content-Type': 'application/json',
-		// 	// 		Accept: 'application/json',
-		// 	// 	},
-		// 	// }
 		`votings/${voting_id}/vote`,
 		{
 			nomination_id: nomination_id,
@@ -104,16 +91,4 @@ export function userVote(
 			},
 		}
 	);
-	// return fetch(`https://vote.rtuitlab.dev/api/votings/${voting_id}/vote`, {
-	// 	method: 'POST',
-	// 	headers: {
-	// 		Authorization: jwt,
-	// 		'Content-Type': 'application/json; charset=UTF-8',
-	// 		Accept: 'application/json; charset=UTF-8',
-	// 	},
-	// 	body: {
-	// 		body: 'dasf',
-
-	// 	},
-	// });
 }

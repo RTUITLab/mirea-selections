@@ -100,13 +100,6 @@ export function Selection() {
 		if (!sessionStorage.getItem('token')) {
 			window.location.href = `https://vote.rtuitlab.dev/api/auth/login?redirect_url=${window.location.href}`;
 		} else {
-			// console.log(votingInfo?.id);
-			// console.log(
-			// 	selectedNomination === 'student'
-			// 		? studentNominationId
-			// 		: teacherNominationId
-			// );
-			// console.log(chosenApplicant.id);
 			const nominationId =
 				selectedNomination === 'student'
 					? studentNominationId

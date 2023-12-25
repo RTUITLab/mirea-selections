@@ -116,6 +116,8 @@ export function MobileSelection() {
 												onClick={() => {
 													setChosenApplicant(applicant);
 												}}
+												buttonText="Проголосовать"
+												onVoteClick={() => console.log('vote')}
 											/>
 										);
 								  })
@@ -127,6 +129,8 @@ export function MobileSelection() {
 												avatarSrc={applicant.cover_url}
 												smallDescription={applicant.short_description}
 												onClick={() => setChosenApplicant(applicant)}
+												buttonText="Проголосовать"
+												onVoteClick={() => console.log('vote')}
 											/>
 										);
 								  })}
