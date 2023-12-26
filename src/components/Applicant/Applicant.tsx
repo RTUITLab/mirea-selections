@@ -7,8 +7,6 @@ interface ApplicantProps {
 	smallDescription: string;
 	avatarSrc: string;
 	onClick: () => void;
-	onVoteClick: () => void;
-	buttonText: string;
 }
 
 export function Applicant({
@@ -16,8 +14,6 @@ export function Applicant({
 	smallDescription,
 	avatarSrc,
 	onClick,
-	onVoteClick,
-	buttonText,
 }: ApplicantProps) {
 	return (
 		<div className={styles.applicant} onClick={() => onClick()}>
@@ -28,14 +24,6 @@ export function Applicant({
 					<p className={styles.applicantFIO}>{fio}</p>
 					<p className={styles.applicantSmallDescription}>{smallDescription}</p>
 				</div>
-
-				{!isMobile && (
-					<VoteButton
-						location="applicant"
-						onVoteClick={onVoteClick}
-						buttonText={buttonText}
-					/>
-				)}
 			</div>
 		</div>
 	);

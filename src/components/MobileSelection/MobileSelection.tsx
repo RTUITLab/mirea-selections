@@ -29,6 +29,15 @@ export function MobileSelection() {
 	const [chosenApplicant, setChosenApplicant] = useState({} as ApplicantInfo);
 	const searchParams = new URLSearchParams(window.location.search);
 	const queryClient = useQueryClient();
+	const currentTime = new Date().toISOString();
+	const currentDay = currentTime.split('T')[0].slice(8);
+	const currentHour = currentTime.split('T')[1].slice(0, 2);
+
+	useEffect(() => {
+		setChosenApplicant({} as ApplicantInfo);
+	}, []);
+
+	console.log(chosenApplicant);
 
 	const { data: votingInfo } = useQuery({
 		queryKey: ['votingInfo'],
@@ -50,7 +59,7 @@ export function MobileSelection() {
 				votingInfo?.id,
 				teacherNominationId
 			);
-			setChosenApplicant(res.data.nominants[0]);
+			//setChosenApplicant(res.data.nominants[0]);
 			return res.data;
 		},
 		enabled: !!teacherNominationId && !!votingInfo,
@@ -130,7 +139,50 @@ export function MobileSelection() {
 		}
 	}
 
-	//console.log(chosenApplicant.video_url.slice(21, 30));
+	function showButton() {
+		if (votingInfo) {
+			if (
+				parseInt(currentDay) <
+					parseInt(votingInfo?.start_date.split('T')[0].slice(8)) ||
+				parseInt(currentDay) >
+					parseInt(votingInfo?.finish_date.split('T')[0].slice(8))
+			) {
+				return false;
+			} else {
+				if (
+					parseInt(currentDay) ===
+					parseInt(votingInfo?.start_date.split('T')[0].slice(8))
+				) {
+					if (
+						parseInt(currentHour) <
+						parseInt(votingInfo.start_date.split('T')[1].slice(0, 2))
+					) {
+						return false;
+					} else {
+						return true;
+					}
+				}
+
+				if (
+					parseInt(currentDay) ===
+					parseInt(votingInfo?.finish_date.split('T')[0].slice(8))
+				) {
+					if (
+						parseInt(currentHour) >=
+						parseInt(votingInfo.finish_date.split('T')[1].slice(0, 2))
+					) {
+						return false;
+					} else {
+						return true;
+					}
+				}
+
+				return true;
+			}
+		} else {
+			return false;
+		}
+	}
 
 	return (
 		<section
@@ -147,7 +199,7 @@ export function MobileSelection() {
 			>
 				<img src={selectionTitleSrc} className={styles.mobileSelectionTitle} />
 
-				{!chosenApplicant.id ? (
+				{Object.keys(chosenApplicant).length === 0 ? (
 					<>
 						<div className={styles.mobileSelectionNominationsChooser}>
 							<button
@@ -186,8 +238,6 @@ export function MobileSelection() {
 												onClick={() => {
 													setChosenApplicant(applicant);
 												}}
-												buttonText={getButtonText()}
-												onVoteClick={handleRedirect}
 											/>
 										);
 								  })
@@ -199,8 +249,6 @@ export function MobileSelection() {
 												avatarSrc={applicant.cover_url}
 												smallDescription={applicant.short_description}
 												onClick={() => setChosenApplicant(applicant)}
-												buttonText={getButtonText()}
-												onVoteClick={handleRedirect}
 											/>
 										);
 								  })}
@@ -243,11 +291,13 @@ export function MobileSelection() {
 								{/* <button className={styles.mobileSelectionStudentButton}>
 									Вы проголосовали!
 								</button> */}
-								<VoteButton
-									location="mobileSelection"
-									buttonText={getButtonText()}
-									onVoteClick={handleRedirect}
-								/>
+								{showButton() && (
+									<VoteButton
+										location="mobileSelection"
+										buttonText={getButtonText()}
+										onVoteClick={handleRedirect}
+									/>
+								)}
 							</div>
 						</div>
 						<button

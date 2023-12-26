@@ -8,6 +8,13 @@
 	font-weight: 400;
 	line-height: normal;
 	letter-spacing: 0.48px;
+	opacity: 1;
+	transition: all 0.2s ease-in;
+
+	&:hover {
+		opacity: 0.5;
+		cursor: pointer;
+	}
 
 	&Selection {
 		font-size: 15px;

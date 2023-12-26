@@ -29,6 +29,11 @@ export function Selection() {
 	const [chosenApplicant, setChosenApplicant] = useState({} as ApplicantInfo);
 	const searchParams = new URLSearchParams(window.location.search);
 	const queryClient = useQueryClient();
+	const currentTime = new Date().toISOString();
+	const currentDay = currentTime.split('T')[0].slice(8);
+	const currentHour = currentTime.split('T')[1].slice(0, 2);
+
+	console.log(currentDay, currentHour);
 
 	const { data: votingInfo } = useQuery({
 		queryKey: ['votingInfo'],
@@ -39,6 +44,8 @@ export function Selection() {
 			return res.data;
 		},
 	});
+
+	console.log(votingInfo);
 
 	const { data: teachersNominationInfo, isLoading: teachersLoading } = useQuery(
 		{
@@ -138,6 +145,51 @@ export function Selection() {
 		}
 	}
 
+	function showButton() {
+		if (votingInfo) {
+			if (
+				parseInt(currentDay) <
+					parseInt(votingInfo?.start_date.split('T')[0].slice(8)) ||
+				parseInt(currentDay) >
+					parseInt(votingInfo?.finish_date.split('T')[0].slice(8))
+			) {
+				return false;
+			} else {
+				if (
+					parseInt(currentDay) ===
+					parseInt(votingInfo?.start_date.split('T')[0].slice(8))
+				) {
+					if (
+						parseInt(currentHour) <
+						parseInt(votingInfo.start_date.split('T')[1].slice(0, 2))
+					) {
+						return false;
+					} else {
+						return true;
+					}
+				}
+
+				if (
+					parseInt(currentDay) ===
+					parseInt(votingInfo?.finish_date.split('T')[0].slice(8))
+				) {
+					if (
+						parseInt(currentHour) >=
+						parseInt(votingInfo.finish_date.split('T')[1].slice(0, 2))
+					) {
+						return false;
+					} else {
+						return true;
+					}
+				}
+
+				return true;
+			}
+		} else {
+			return false;
+		}
+	}
+
 	return (
 		<section className={styles.selection}>
 			<img src={leavesBackgroundSrc} className={styles.leavesBackground} />
@@ -190,8 +242,6 @@ export function Selection() {
 													onClick={() => {
 														setChosenApplicant(applicant);
 													}}
-													onVoteClick={handleRedirect}
-													buttonText={getButtonText()}
 												/>
 											);
 									  })
@@ -203,8 +253,6 @@ export function Selection() {
 													avatarSrc={applicant.cover_url}
 													smallDescription={applicant.short_description}
 													onClick={() => setChosenApplicant(applicant)}
-													onVoteClick={handleRedirect}
-													buttonText={getButtonText()}
 												/>
 											);
 									  })}
@@ -243,12 +291,13 @@ export function Selection() {
 								<p className={styles.selectionApplicantDescription}>
 									{chosenApplicant.description}
 								</p>
-
-								<VoteButton
-									location={'selection'}
-									onVoteClick={handleRedirect}
-									buttonText={getButtonText()}
-								/>
+								{showButton() && (
+									<VoteButton
+										location={'selection'}
+										onVoteClick={handleRedirect}
+										buttonText={getButtonText()}
+									/>
+								)}
 							</div>
 						)}
 					</div>
