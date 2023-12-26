@@ -1,6 +1,4 @@
-import VoteButton from '../VoteButton';
 import styles from './Applicant.module.scss';
-import { isMobile } from 'react-device-detect';
 
 interface ApplicantProps {
 	fio: string;
