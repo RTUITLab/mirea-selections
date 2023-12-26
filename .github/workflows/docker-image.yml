@@ -7,11 +7,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      VITE_BASE_URL: https://konkurs.mirea.ru/api/
 
     steps:
     - uses: actions/checkout@v3
+    - name: Create .env
+      run: echo "VITE_BASE_URL=https://konkurs.mirea.ru/api/" > .env
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag ${{ secrets.GITLAB_REGISTRY_HOST }}/mirea-selections/front:latest
     - name: Login docker
