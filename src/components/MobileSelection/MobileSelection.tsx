@@ -248,6 +248,7 @@ export function MobileSelection() {
 												fio={applicant.title}
 												avatarSrc={applicant.cover_url}
 												smallDescription={applicant.short_description}
+												grayscale={teachersNominationInfo?.vote ? teachersNominationInfo?.vote.nominant_id !== applicant.id : false}
 												onClick={() => {
 													setChosenApplicant(applicant);
 												}}
@@ -261,6 +262,7 @@ export function MobileSelection() {
 												fio={applicant.title}
 												avatarSrc={applicant.cover_url}
 												smallDescription={applicant.short_description}
+												grayscale={studentsNominationInfo?.vote ? studentsNominationInfo?.vote.nominant_id !== applicant.id : false}
 												onClick={() => setChosenApplicant(applicant)}
 											/>
 										);

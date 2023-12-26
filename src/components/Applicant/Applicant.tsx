@@ -4,6 +4,7 @@ interface ApplicantProps {
 	fio: string;
 	smallDescription: string;
 	avatarSrc: string;
+	grayscale: boolean;
 	onClick: () => void;
 }
 
@@ -11,10 +12,11 @@ export function Applicant({
 	fio,
 	smallDescription,
 	avatarSrc,
+	grayscale,
 	onClick,
 }: ApplicantProps) {
 	return (
-		<div className={styles.applicant} onClick={() => onClick()}>
+		<div className={`${styles.applicant} ${grayscale ? styles.grayscale : ''}`} onClick={() => onClick()}>
 			<img src={avatarSrc} className={styles.applicantAvatar} />
 
 			<div className={styles.applicantInfo}>

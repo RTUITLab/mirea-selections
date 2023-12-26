@@ -96,7 +96,7 @@ export function Selection() {
 			let votesCount = 0;
 			if (teachersNominationInfo?.vote) votesCount++;
 			if (studentsNominationInfo?.vote) votesCount++;
-			
+
 			if (votesCount === 0) {
 				// Show modal
 				setShowModal(true);
@@ -250,6 +250,7 @@ export function Selection() {
 													fio={applicant.title}
 													avatarSrc={applicant.cover_url}
 													smallDescription={applicant.short_description}
+													grayscale={teachersNominationInfo?.vote ? teachersNominationInfo?.vote.nominant_id !== applicant.id : false}
 													onClick={() => {
 														setChosenApplicant(applicant);
 													}}
@@ -263,6 +264,7 @@ export function Selection() {
 													fio={applicant.title}
 													avatarSrc={applicant.cover_url}
 													smallDescription={applicant.short_description}
+													grayscale={studentsNominationInfo?.vote ? studentsNominationInfo?.vote.nominant_id !== applicant.id : false}
 													onClick={() => setChosenApplicant(applicant)}
 												/>
 											);
