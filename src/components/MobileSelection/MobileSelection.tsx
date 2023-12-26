@@ -8,6 +8,7 @@ import Applicant from '../Applicant';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getNominationInfo, getVotingInfo, userVote } from '../../api';
 import VoteButton from '../VoteButton';
+import { SelectionModal } from '../Selection/SelectionModal';
 
 type NominationType = 'teachers' | 'students';
 
@@ -27,6 +28,7 @@ export function MobileSelection() {
 	const [teacherNominationId, setTeacherNominationId] = useState('');
 	const [studentNominationId, setStudentNominationId] = useState('');
 	const [chosenApplicant, setChosenApplicant] = useState({} as ApplicantInfo);
+	const [showModal, setShowModal] = useState(false);
 	const searchParams = new URLSearchParams(window.location.search);
 	const queryClient = useQueryClient();
 	const currentTime = new Date().toISOString();
@@ -91,6 +93,15 @@ export function MobileSelection() {
 			return resp;
 		},
 		onSuccess: () => {
+			let votesCount = 0;
+			if (teachersNominationInfo?.vote) votesCount++;
+			if (studentsNominationInfo?.vote) votesCount++;
+			
+			if (votesCount === 0) {
+				// Show modal
+				setShowModal(true);
+			}
+
 			queryClient.invalidateQueries({
 				queryKey: ['studentsNominationInfo', votingInfo, studentNominationId],
 			});
@@ -190,6 +201,8 @@ export function MobileSelection() {
 				chosenApplicant.id && styles.mobileSelectionChosenMode
 			}`}
 		>
+			{showModal && <SelectionModal onCloseModal={() => setShowModal(false)}></SelectionModal>}
+
 			<img src={leavesBackgroundSrc} className={styles.leavesBackground} />
 
 			<img src={awardCupBackgroundSrc} className={styles.awardCupBackground} />

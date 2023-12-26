@@ -8,6 +8,7 @@ import Applicant from '../Applicant';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getVotingInfo, getNominationInfo, userVote } from '../../api';
 import VoteButton from '../VoteButton';
+import { SelectionModal } from './SelectionModal';
 
 type SelectedNominationType = 'teacher' | 'student';
 
@@ -27,13 +28,12 @@ export function Selection() {
 	const [teacherNominationId, setTeacherNominationId] = useState('');
 	const [studentNominationId, setStudentNominationId] = useState('');
 	const [chosenApplicant, setChosenApplicant] = useState({} as ApplicantInfo);
+	const [showModal, setShowModal] = useState(false);
 	const searchParams = new URLSearchParams(window.location.search);
 	const queryClient = useQueryClient();
 	const currentTime = new Date().toISOString();
 	const currentDay = currentTime.split('T')[0].slice(8);
 	const currentHour = currentTime.split('T')[1].slice(0, 2);
-
-	console.log(currentDay, currentHour);
 
 	const { data: votingInfo } = useQuery({
 		queryKey: ['votingInfo'],
@@ -45,7 +45,7 @@ export function Selection() {
 		},
 	});
 
-	console.log(votingInfo);
+	// console.log(votingInfo);
 
 	const { data: teachersNominationInfo, isLoading: teachersLoading } = useQuery(
 		{
@@ -93,6 +93,15 @@ export function Selection() {
 			return resp;
 		},
 		onSuccess: () => {
+			let votesCount = 0;
+			if (teachersNominationInfo?.vote) votesCount++;
+			if (studentsNominationInfo?.vote) votesCount++;
+			
+			if (votesCount === 0) {
+				// Show modal
+				setShowModal(true);
+			}
+
 			queryClient.invalidateQueries({ queryKey: ['teachersNominationInfo'] });
 			queryClient.invalidateQueries({ queryKey: ['studentsNominationInfo'] });
 		},
@@ -192,6 +201,8 @@ export function Selection() {
 
 	return (
 		<section className={styles.selection}>
+			{showModal && <SelectionModal onCloseModal={() => setShowModal(false)}></SelectionModal>}
+			
 			<img src={leavesBackgroundSrc} className={styles.leavesBackground} />
 
 			<img src={awardCupBackgroundSrc} className={styles.awardCupBackground} />
